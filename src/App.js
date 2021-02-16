@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react' //useRef to reference elements in html
 import TodoList from './TodoList'
-import uuidv4 from "uuid/v4";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   //every todo in the list, a function to update the todos
@@ -15,7 +15,7 @@ function App() {
     if(name === '') return //if it's empty go out
     //console.log(name)
     setTodos(prevTodos => {
-      return [...prevTodos, {id: 1, name: name, complete: false}]
+      return [...prevTodos, {id: uuidv4(), name: name, complete: false}]
     })
 
 
