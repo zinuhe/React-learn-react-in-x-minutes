@@ -1,14 +1,26 @@
 import React, {useState, useRef} from 'react' //useRef to reference elements in html
+import {useEffect} from 'react' //hook for storage
 import TodoList from './TodoList'
 import { v4 as uuidv4 } from 'uuid';
+
+const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
 function App() {
   //every todo in the list, a function to update the todos
   const [todos, setTodos] = useState([])
   //const [todos, setTodos] = useState(['Todo 1', 'Todo 2'])
   //const [todos, setTodos] = useState([{ id: 1, name: 'Todo 1', complete: true }])
-
   const todoNameRef = useRef()
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedTodos) setTodos(storedTodos)
+  }, []) //No dependency se va a ejcutar cuando cargue el componente una sola vez
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+  }, [todos]) //Dependency: Any change on todos trigger this function
+
 
   function handleAddTodo(e) {
     const name = todoNameRef.current.value
