@@ -5,7 +5,7 @@ function App() {
   //every todo in the list, a function to update the todos
   //const [todos, setTodos] = useState([])
   //const [todos, setTodos] = useState(['Todo 1', 'Todo 2'])
-  const [todos, setTodos] = useState([{ id: 1, name: 'Todo 1', complete: false }])
+  const [todos, setTodos] = useState([{ id: 1, name: 'Todo 1', complete: true }])
 
   return (
     <>
