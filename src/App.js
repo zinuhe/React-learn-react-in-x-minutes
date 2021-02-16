@@ -21,6 +21,12 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
   }, [todos]) //Dependency: Any change on todos trigger this function
 
+  function toggleTodo(id){
+    const newTodos = [...todos] //nunca usar el original, sacar copia y usar la copia
+    const todo = newTodos.find(todo => todo.id === id)
+    todo.complete = !todo.complete
+    setTodos(newTodos)
+  }
 
   function handleAddTodo(e) {
     const name = todoNameRef.current.value
@@ -30,14 +36,13 @@ function App() {
       return [...prevTodos, {id: uuidv4(), name: name, complete: false}]
     })
 
-
     todoNameRef.current.value = null
   }
 
 
   return (
     <>
-      <TodoList todoList={todos} />
+      <TodoList todoList={todos} toggleTodo={toggleTodo} />
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add Todo</button>
       <button>Clear Completed</button>
